@@ -32,13 +32,6 @@ gulp.task("sass", () =>
     .pipe(gulp.dest("./dist/css"))
 );
 
-gulp.task("css", () =>
-  gulp
-    .src(styles)
-    .pipe(concat("main.css"))
-    .pipe(gulp.dest("./dist/css"))
-);
-
 gulp.task("js", () =>
   gulp
     .src(scripts)
@@ -55,11 +48,10 @@ gulp.task("lint", () =>
     .pipe(jshint.reporter("jshint-stylish", { verbose: true }))
 );
 
-gulp.task("html", () =>
-  gulp
-    .src(["./src/app/**/*.html", "./src/**/*.html"])
-    .pipe(gulp.dest("./dist/"))
-);
+gulp.task("html", () => {
+  gulp.src("./src/*.html").pipe(gulp.dest("./dist/"));
+  return gulp.src("./src/app/**/*.html").pipe(gulp.dest("./dist/partials/"));
+});
 
 gulp.task("ng", () =>
   gulp
@@ -74,12 +66,12 @@ gulp.task("ng", () =>
     .pipe(gulp.dest("dist"))
 );
 gulp.task("assets", () =>
-  gulp.src("./src/assets/*.png").pipe(gulp.dest("./dist/"))
+  gulp.src("./src/assets/**.*").pipe(gulp.dest("./dist/assets"))
 );
 
 gulp.task(
   "build",
-  gulp.series(["sass", "js", "html"]),
+  gulp.series(["sass", "js", "assets", "html"]),
   // gulp.series(["css", "sass", "js", "ng", "html", "assets"]),
   () => {}
 );
