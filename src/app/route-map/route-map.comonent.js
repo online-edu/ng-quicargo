@@ -8,6 +8,6 @@
   "use strict";
   angular.module("quicargo").component("routeMap", {
     templateUrl: "partials/route-map/route-map.html",
-    controller: function RouteMapController() {}
+    controller: [function RouteMapController() {}]
   });
 })();

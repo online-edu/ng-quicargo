@@ -8,6 +8,6 @@
   "use strict";
   angular.module("quicargo").component("history", {
     templateUrl: "partials/history/history.html",
-    controller: function HistoryController() {}
+    controller: [function HistoryController() {}]
   });
 })();

@@ -8,6 +8,6 @@
   "use strict";
   angular.module("quicargo").component("delivery", {
     templateUrl: "partials/delivery/delivery.html",
-    controller: function DeliveryController() {}
+    controller: [function DeliveryController() {}]
   });
 })();
