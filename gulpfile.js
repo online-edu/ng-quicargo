@@ -20,12 +20,16 @@ const scripts = [
   `${modules}/angular-touch/angular-touch.min.js`,
   `${modules}/angular-animate/angular-animate.min.js`,
   `${modules}/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js`,
+  `${modules}/angularjs-slider/dist/rzslider.min.js`,
   "./src/app/**/*.js"
 ];
 
 gulp.task("sass", () =>
   gulp
-    .src("./src/**/**/*.scss")
+    .src([
+      "./src/**/**/*.scss",
+      "./node_modules/angularjs-slider/dist/rzslider.min.css"
+    ])
     .pipe(sass())
     // .pipe(cssnano())
     .pipe(concat("quicargo.css"))
