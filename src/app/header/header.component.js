@@ -8,6 +8,9 @@
   "use strict";
   angular.module("quicargo").component("appNav", {
     templateUrl: "partials/header/header.html",
+    bindings: {
+      user: "@"
+    },
     controller: function HeaderController() {}
   });
 })();
