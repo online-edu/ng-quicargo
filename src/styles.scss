@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700");
+@import "./app/shared/theme";
+@import "../node_modules/bootstrap/scss/bootstrap";
+
 body {
-  background-color: #f2f3f8;
   .quicargo-container {
     transition: margin-left 0.5s;
     margin-left: 260px;

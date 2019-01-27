@@ -17,7 +17,9 @@ const styles = [`${modules}/bootstrap/dist/css/bootstrap.min.css`];
 const scripts = [
   `${modules}/angular/angular.min.js`,
   `${modules}/angular-route/angular-route.min.js`,
-  // `${modules}/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js`,
+  `${modules}/angular-touch/angular-touch.min.js`,
+  `${modules}/angular-animate/angular-animate.min.js`,
+  `${modules}/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js`,
   "./src/app/**/*.js"
 ];
 
@@ -25,10 +27,9 @@ gulp.task("sass", () =>
   gulp
     .src("./src/**/**/*.scss")
     .pipe(sass())
-    .pipe(cssnano())
+    // .pipe(cssnano())
     .pipe(concat("quicargo.css"))
     .pipe(gulp.dest("./dist/css"))
-    .pipe(browserSync.stream())
 );
 
 gulp.task("css", () =>
@@ -42,8 +43,8 @@ gulp.task("js", () =>
   gulp
     .src(scripts)
     .pipe(concat("quicargo.js"))
-    .pipe(uglify())
-    .pipe(minify())
+    // .pipe(uglify())
+    // .pipe(minify())
     .pipe(gulp.dest("./dist/js"))
 );
 
@@ -78,12 +79,13 @@ gulp.task("assets", () =>
 
 gulp.task(
   "build",
-  gulp.series(["css", "sass", "js", "ng", "html", "assets"]),
+  gulp.series(["sass", "js", "html"]),
+  // gulp.series(["css", "sass", "js", "ng", "html", "assets"]),
   () => {}
 );
 
 gulp.task("browser-sync", () => {
-  browserSync.init(null, {
+  browserSync.init({
     open: false,
     server: {
       baseDir: "./dist"
@@ -95,5 +97,6 @@ gulp.task("browser-sync", () => {
 });
 
 gulp.task("serve", gulp.series(["build", "browser-sync"]), () => {
-  gulp.watch("./src/app/**/*.scss", ["sass"]);  
+  gulp.watch("./src/**/**/*.scss", ["sass"]);
+  gulp.watch("*.html").on("change", browserSync.reload);
 });

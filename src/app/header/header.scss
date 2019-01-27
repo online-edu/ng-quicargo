@@ -1,0 +1,48 @@
+@import "../shared/colors";
+
+.header {
+  background-color: $white;
+  box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
+  height: 75px;
+  .header__user-dropdown {
+    position: relative;
+    display: inline-block;
+    .header__user-dropdown-btn {
+      display: flex;
+      color: $link;
+      align-items: center;
+      .header__user--avatar {
+        font-size: 36px;
+      }
+    }
+    &:hover {
+      border-radius: 24px;
+      transition: all 0.3s;
+      background-color: rgba(lighten($primary, 60), 0.5);
+      .header__user-dropdown-content {
+        display: block;
+      }
+    }
+
+    .header__user-dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: $white;
+      min-width: 175px;
+      box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
+      z-index: 2;
+      border-radius: 8px;
+      overflow: hidden;
+      a {
+        color: #646c9a;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        &:hover {
+          background-color: $link-light;
+          color: $primary;
+        }
+      }
+    }
+  }
+}
