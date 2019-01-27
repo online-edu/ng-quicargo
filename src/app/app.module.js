@@ -20,7 +20,7 @@
             template: "<dashboard></dashboard>",
             activetab: "dashboard"
           })
-          .when("/deliveries", {
+          .when("/delivery", {
             template: "<delivery></delivery>",
             activetab: "delivery"
           })
