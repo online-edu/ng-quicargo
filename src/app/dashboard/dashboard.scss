@@ -1,0 +1,39 @@
+@import "../shared/colors";
+
+.dashboard {
+  padding: 1em;
+  .dashboard__cards {
+    box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+    .custom-form-group {
+      display: flex;
+      align-items: flex-end;
+    }
+    .freight-volumes {
+      margin-top: 1.95em;
+    }
+    .custom-picker-btn {
+      padding: 3px 10px 0 10px;
+    }
+    .has-error {
+      border-color: $danger;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      // &:focus {
+      //   box-shadow: inset 0 1px 1px rgba(185, 74, 72, 0.075);
+      // }
+    }
+    .invalid-feedback {
+      display: block !important;
+    }
+  }
+  .dashboard__form-footer {
+    text-align: center;
+  }
+  .dashboard__cards--map {
+    overflow: hidden;
+    width: 100%;
+    height: calc(100% - 100px);
+    route-map {
+      height: 100%;
+    }
+  }
+}
