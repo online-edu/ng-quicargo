@@ -8270,7 +8270,7 @@ angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInli
  */
 (function() {
   angular.module("quicargo").component("dashboard", {
-    templateUrl: "partials/dashboard/dashboard.html",
+    templateUrl: "ng-quicargo/partials/dashboard/dashboard.html",
     controller: function DashboardController(dashboardService) {
       var self = this;
 
@@ -8382,7 +8382,7 @@ angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInli
 (function() {
   "use strict";
   angular.module("quicargo").component("appNav", {
-    templateUrl: "partials/header/header.html",
+    templateUrl: "ng-quicargo/partials/header/header.html",
     controller: function HeaderController() {}
   });
 })();
@@ -8396,7 +8396,7 @@ angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInli
 (function() {
   "use strict";
   angular.module("quicargo").component("routeMap", {
-    templateUrl: "partials/route-map/route-map.html",
+    templateUrl: "ng-quicargo/partials/route-map/route-map.html",
     controller: function RouteMapController() {}
   });
 })();
@@ -8410,7 +8410,7 @@ angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInli
 (function() {
   "use strict";
   angular.module("quicargo").component("sidenav", {
-    templateUrl: "partials/sidenav/sidenav.html",
+    templateUrl: "ng-quicargo/partials/sidenav/sidenav.html",
     controller: function SidenavController($route) {
       var main = document.getElementById("quicargo-container");
       var sidenav = document.getElementById("sidenav");
