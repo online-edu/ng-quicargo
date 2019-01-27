@@ -1,13 +1,13 @@
 <!-- Sidenav View -->
 <div class="sidenav" id="sidenav">
-  <div
+  <section
     class="sidenav__header py-2"
     ng-class="{'sidenav__header--collapsed':$ctrl.collapsed}"
   >
     <img
-      ng-class="{'sidenav--collapsed':$ctrl.collapsed}"
+      ng-hide="$ctrl.collapsed"
       class="sidenav__header--logo"
-      src="../../assets/logo.png"
+      src="../../ng-quicargo/assets/logo.png"
     />
     <button
       class="btn mr-1 mt-1 sidenav__header--button"
@@ -16,30 +16,44 @@
     >
       <i class="material-icons">menu</i>
     </button>
-  </div>
-  <ul
-    class="nav flex-column sidenav__nav"
-    ng-class="{'sidenav--collapsed':$ctrl.collapsed}"
-  >
+  </section>
+  <!-- Main nav -->
+  <ul class="nav flex-column sidenav__nav mt-4" ng-hide="$ctrl.collapsed">
     <li ng-repeat="item in $ctrl.navItems" class="nav-item">
       <a
         class="nav-link sidenav__nav-item"
         href="#!/{{ item.link }}"
-        ng-class="{disabled: item.disabled, active:  $route.current.activetab ==  item.link  }"
+        ng-class="{active:  $ctrl.$route.current.activetab ===  item.link  }"
         >{{ item.title }}
-        <span class="badge badge-secondary">{{ item.count }}</span></a
+        <span
+          class="badge badge-primary badge-pill float-right sidenav__nav-item-badge--big"
+          >{{ item.count }}</span
+        ></a
       >
     </li>
   </ul>
+  <!-- Collpased menu -->
   <ul
-    class="nav flex-column mt-2"
-    ng-class="{'sidenav--collapsed':!$ctrl.collapsed}"
+    class="nav flex-column mt-2 sidenav--collapsed-list"
+    ng-hide="!$ctrl.collapsed"
   >
-    <li ng-repeat="item in $ctrl.navItems" class="nav-item mx-auto">
+    <li
+      ng-repeat="item in $ctrl.navItems"
+      class="nav-item mx-auto my-2 pr-1 sidenav--collapsed__item"
+    >
       <h2>
-        <span class="badge badge-secondary sidenav__nav-item-badge">{{
-          item.title.substr(0, 1)
-        }}</span>
+        <a href="#!/{{ item.link }}" title="{{ item.title }}">
+          <span
+            class="badge badge-primary pt-2 sidenav--collapsed__item-badge"
+            >{{ item.title.substr(0, 1) }}</span
+          >
+          <span
+            ng-if="item.count"
+            class="badge badge-secondary sidenav--collapsed__item-badge-counter"
+          >
+            {{ item.count }}
+          </span>
+        </a>
       </h2>
     </li>
   </ul>

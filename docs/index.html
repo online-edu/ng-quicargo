@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="quicargo">
   <head>
-    <style>
-      /* This helps the ng-show/ng-hide animations start at the right place. */
-      /* Since Angular has this but needs to load, this gives us the class early. */
-      .ng-hide {
-        display: none !important;
-      }
-    </style>
     <title ng-bind="title">Quicargo</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
@@ -29,32 +22,10 @@
   </head>
 
   <body>
-    <div>
-      <div id="splash-page" ng-show="showSplash">
-        <div class="page-splash">
-          <div class="page-splash-message">helloworld</div>
-          <div class="progress progress-striped active page-progress-bar">
-            <div class="bar"></div>
-          </div>
-        </div>
-      </div>
-    </div>
     <sidenav></sidenav>
     <main class="quicargo-container" id="quicargo-container">
       <div ng-view></div>
     </main>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script> -->
-    <!-- <script src="https://code.angularjs.org/1.7.6/angular-route.min.js"></script> -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
-    <script src="https://code.angularjs.org/1.7.6/angular-animate.min.js"></script>
-    <script src="https://code.angularjs.org/1.7.6/angular-touch.min.js"></script>
-    <script src="https://code.angularjs.org/1.7.6/angular-route.min.js"></script> -->
-    <script src="./ng-quicargo/js/quicargo.js"></script>
-    <!-- <script src="./js/templates.js"></script> -->
-    <!-- <script src="./app/app.module.js"></script>
-    <script src="./app/app.config.js"></script>
-    <script src="./app/sidenav/sidenav.component.js"></script>
-    <script src="./app/nav/nav.component.js"></script>
-    <script src="./app/dashboard/dashboard.component.js"></script> -->
+    <script src="./js/quicargo-min.js"></script>
   </body>
 </html>
