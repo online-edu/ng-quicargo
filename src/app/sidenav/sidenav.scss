@@ -1,13 +1,22 @@
 @import "../shared/colors";
 
+@mixin nav-active-item {
+  color: $white;
+  background-color: $nav-active;
+}
+
+@mixin transition($val: 0.5s) {
+  transition: $val;
+}
+
 .sidenav {
+  @include transition;
   width: 260px;
   max-width: 260px;
-  background: #242838;
+  background: $nav-bg;
   height: 100vh;
   z-index: 1;
   position: fixed;
-  transition: 0.5s;
   box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
   .sidenav__header {
     height: 75px;
@@ -15,7 +24,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: thin solid $white;
     .sidenav__header--logo {
       height: 56px;
       width: 145px;
@@ -34,19 +42,41 @@
   }
   .sidenav__nav {
     .sidenav__nav-item {
-      color: #c0c4d1;
+      font-size: 14px;
+      color: $nav-item;
+      .sidenav__nav-item-badge--big {
+        font-size: 14px;
+      }
       &:hover {
-        color: $white;
-        background-color: #1f2332;
+        @include nav-active-item();
+      }
+    }
+    .active {
+      @include nav-active-item();
+    }
+  }
+  .sidenav--collapsed-list {
+    .sidenav--collapsed__item {
+      position: relative;
+      h2 {
+        @include transition;
+        transform: scale(1);
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+      .sidenav--collapsed__item-badge {
+        min-height: 40px;
+        min-width: 40px;
+      }
+      .sidenav--collapsed__item-badge-counter {
+        top: -10px;
+        position: absolute;
+        font-size: 14px;
+        background-color: $nav-badge;
+        right: -5px;
+        max-width: 36px;
       }
     }
   }
-  .sidenav__nav-item-badge {
-    min-height: 40px;
-    min-width: 40px;
-  }
-}
-.sidenav--collapsed {
-  display: none;
-  transition: 0.5s;
 }
