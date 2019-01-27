@@ -7,7 +7,7 @@
 (function() {
   "use strict";
   angular.module("quicargo").component("appNav", {
-    templateUrl: "header/header.html",
+    templateUrl: "partials/header/header.html",
     controller: function HeaderController() {}
   });
 })();
