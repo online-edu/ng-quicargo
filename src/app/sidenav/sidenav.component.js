@@ -13,6 +13,8 @@
       function SidenavController($route) {
         var main = document.getElementById("quicargo-container");
         var sidenav = document.getElementById("sidenav");
+        var mainClass = "quicargo-container--full-screen";
+        var sideNavClass = "sidenav--collapsed";
         var self = this;
         self.$route = $route;
         self.collapsed = false;
@@ -31,16 +33,21 @@
          * @desc Toggles the sidenav on menu click
          */
         self.toggleMenu = function() {
-          self.updateStyles(self.collapsed ? "260px" : "75px");
+          self.toggleClass(
+            [main, sidenav],
+            [mainClass, sideNavClass],
+            self.collapsed
+          );
           self.collapsed = !self.collapsed;
         };
         /**
          * @namespace SidenavController
-         * @desc update styles for main container and side nav
+         * @desc toggles class for main container and side nav
          */
-        self.updateStyles = function(val) {
-          main.style.marginLeft = val;
-          sidenav.style.width = val;
+        self.toggleClass = function(elements, klass, add) {
+          elements.forEach(function(ele, i) {
+            add ? ele.classList.remove(klass[i]) : ele.classList.add(klass[i]);
+          });
         };
       }
     ]
