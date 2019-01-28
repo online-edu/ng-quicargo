@@ -10,7 +10,8 @@
     templateUrl: "partials/sidenav/sidenav.html",
     controller: [
       "$route",
-      function SidenavController($route) {
+      "$window",
+      function SidenavController($route, $window) {
         var main = document.getElementById("quicargo-container");
         var sidenav = document.getElementById("sidenav");
         var mainClass = "quicargo-container--full-screen";
@@ -49,6 +50,7 @@
             add ? ele.classList.remove(klass[i]) : ele.classList.add(klass[i]);
           });
         };
+        $window.matchMedia("(max-width: 700px)").matches && self.toggleMenu();
       }
     ]
   });
