@@ -30,7 +30,6 @@
                   ng-class="{ 'has-error' : (deliveryForm.$submitted || deliveryForm.pickup.$touched) && deliveryForm.pickup.$error.required }"
                   class="form-control"
                   id="pickup"
-                  ng-model="$ctrl.delivery.route.pickup.city"
                   ng-options="country.name for country in $ctrl.countries"
                   required
                 >
@@ -307,3 +306,7 @@
     </div>
   </div>
 </div>
+
+<pre>
+  {{ $ctrl.delivery | json }}
+</pre>

@@ -8,7 +8,12 @@
     "$q",
     "$http",
     function($q, $http) {
-      var sliderOptions = function() {
+      /**
+       * @function getSliderOptions
+       * @desc Time slider options
+       * @returns {Object}
+       */
+      var getSliderOptions = function() {
         return {
           minValue: 0,
           maxValue: 24,
@@ -36,7 +41,11 @@
           }
         };
       };
-
+      /**
+       * @function getCountries
+       * @desc List of countries from API.
+       * @returns {Object[]}
+       */
       var getCountries = function() {
         var defer = $q.defer();
         $http({
@@ -47,7 +56,11 @@
         });
         return defer.promise;
       };
-
+      /**
+       * @function getDateOptions
+       * @desc date picker options
+       * @returns {Object}
+       */
       var getDateOptions = function() {
         return {
           formatYear: "yy",
@@ -56,14 +69,22 @@
           startingDay: 1
         };
       };
-
+      /**
+       * @function getHours
+       * @desc Extract and formate time in hh:mm
+       * @returns {string}
+       */
       var getHours = function(hrs) {
         var hm = hrs.split(".");
         return hm.length > 1
           ? hm[0] + ":".concat(hm[1] == 5 ? "30" : "00")
           : hm[0] + ":00";
       };
-
+      /**
+       * @function getVolumeTypes
+       * @desc List of voume types
+       * @returns {Object[]}
+       */
       var getVolumeTypes = function() {
         return [
           { id: 0, name: "Block pallet" },
@@ -75,7 +96,7 @@
         getCountries: getCountries,
         getDateOptions: getDateOptions,
         getVolumeTypes: getVolumeTypes,
-        sliderOptions: sliderOptions
+        getSliderOptions: getSliderOptions
       };
     }
   ]);

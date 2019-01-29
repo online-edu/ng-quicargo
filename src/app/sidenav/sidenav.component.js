@@ -23,6 +23,7 @@
         self.navItems = sidenavService.getNavItems();
         /**
          * @namespace SidenavController
+         * @function toggleMenu
          * @desc Toggles the sidenav on menu click
          */
         self.toggleMenu = function() {
