@@ -31,9 +31,9 @@
             translate: function(value, sliderId, label) {
               switch (label) {
                 case "model":
-                  return getHours(value.toString());
+                  return getHours(value);
                 case "high":
-                  return getHours(value.toString());
+                  return getHours(value);
                 default:
                   return value;
               }
@@ -52,7 +52,13 @@
           method: "GET",
           url: "https://restcountries.eu/rest/v2/all"
         }).then(function(countries) {
-          defer.resolve(countries.data);
+          var data = [];
+          if (countries.status == 200 && countries.data) {
+            data = countries.data.map(function(country) {
+              return { name: country.name, id: country.alpha2Code };
+            });
+          }
+          defer.resolve(data);
         });
         return defer.promise;
       };
@@ -70,11 +76,23 @@
         };
       };
       /**
+       * @function getTimes
+       * @desc time for delivery and pickup
+       * @returns {Object}
+       */
+      var getTimes = function(data) {
+        return {
+          from: getHours(data.minValue),
+          to: getHours(data.maxValue)
+        };
+      };
+      /**
        * @function getHours
        * @desc Extract and formate time in hh:mm
        * @returns {string}
        */
       var getHours = function(hrs) {
+        hrs = hrs.toString();
         var hm = hrs.split(".");
         return hm.length > 1
           ? hm[0] + ":".concat(hm[1] == 5 ? "30" : "00")
@@ -91,12 +109,12 @@
           { id: 1, name: "Stringer pallet" }
         ];
       };
-
       return {
         getCountries: getCountries,
         getDateOptions: getDateOptions,
         getVolumeTypes: getVolumeTypes,
-        getSliderOptions: getSliderOptions
+        getSliderOptions: getSliderOptions,
+        getTimes: getTimes
       };
     }
   ]);

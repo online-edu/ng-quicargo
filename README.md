@@ -13,9 +13,8 @@ Visit [`https://online-edu.github.io/ng-quicargo`](https://online-edu.github.io/
 1.  Launch VS Code and open this project (after either by [cloning](https://github.com/online-edu/ng-quicargo.git) or [downloading](https://github.com/online-edu/ng-quicargo/archive/master.zip))
 1.  Open terminal (if VS Code `Ctrl`-`backtick`)
 1.  Install dependencies:
-    1.  Gulp CLI - `npm install gulp-cli -g`
-    2.  Gulp - `npm install gulp -D`
-    3.  App dependencies - `npm install`
+    1.  Gulp CLI - `npm install gulp-cli -g`    
+    2.  App dependencies - `npm install`
 1.  Run the app
     1.  Serve - `npm start`
     2.  Visit - `localhost:8080`
@@ -27,4 +26,4 @@ Visit [`https://online-edu.github.io/ng-quicargo`](https://online-edu.github.io/
 
 ## Enhancement
 
-## Note
+- Using babel, ES6(or above) features, such as `import/export`, `() =>`, `...`, `let/const`, etc, can be used.

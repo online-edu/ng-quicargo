@@ -15,5 +15,20 @@ describe("Component: dashboard", function() {
       expect(controller.loader).toBeDefined();
       expect(controller.loader).toBe(true);
     });
+
+    it("should contain Paper from all goods ", function() {
+      expect(controller.goods).toBeDefined();
+      expect(controller.goods).toContain("Paper");
+    });
+
+    it("should have sliders options available", function() {
+      expect(controller.pickupSlider).toBeDefined();
+      expect(controller.deliverySlider).toBeDefined();
+    });
+
+    it("should update good's value to Plastic", function() {
+      controller.onGoodsClick("Plastic");
+      expect(controller.freightGood).toEqual("Plastic");
+    });
   });
 });
