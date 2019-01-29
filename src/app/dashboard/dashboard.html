@@ -1,5 +1,5 @@
-<app-nav></app-nav>
-<div class="dashboard container-fluid px-4">
+<app-nav user="Andy Simpson"></app-nav>
+<div class="dashboard container-fluid px-4 py-3">
   <div class="row">
     <div class="col-md-7 col-sm-12">
       <form
@@ -100,14 +100,14 @@
               <div class="mb-3 ml-0">
                 <label>Type of goods</label><br />
                 <div class="btn-group" role="group" aria-label="Types of goods">
-                  <button type="button" class="btn btn-secondary">Paper</button>
-                  <button type="button" class="btn btn-secondary">
-                    Plastic
+                  <button
+                    ng-repeat="good in $ctrl.goods"
+                    ng-click="$ctrl.onGoodsClick(good)"
+                    type="button"
+                    class="btn btn-secondary"
+                  >
+                    {{ good }}
                   </button>
-                  <button type="button" class="btn btn-secondary">
-                    Textil
-                  </button>
-                  <button type="button" class="btn btn-secondary">Other</button>
                 </div>
               </div>
               <div class="row">
@@ -137,7 +137,7 @@
                 </div>
                 <div class="col-md-8">
                   <div class="row freight-volumes">
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md">
                       <input
                         type="text"
                         ng-model="$ctrl.delivery.freight.volume.length"
@@ -147,7 +147,7 @@
                       <label for="length">Length (cm)</label>
                     </div>
                     <span class="mt-2 d-none d-sm-block">X</span>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md">
                       <input
                         type="text"
                         ng-model="$ctrl.delivery.freight.volume.width"
@@ -157,7 +157,7 @@
                       <label for="width">Width (cm)</label>
                     </div>
                     <span class="mt-2 d-none d-sm-block">X</span>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md">
                       <input
                         type="text"
                         name="height"
@@ -212,7 +212,6 @@
         <div class="card dashboard__cards my-4">
           <div class="card-body">
             <h5 class="card-title">Date &amp; Time</h5>
-            <!-- <form></form> -->
             <div class="form-group row">
               <label for="pickup" class="col-md-3 col-sm-12 col-form-label"
                 >Pickup Date</label
@@ -224,6 +223,8 @@
                     class="form-control"
                     uib-datepicker-popup
                     placeholder="YYYY-MM-DD"
+                    show-button-bar="false"
+                    on-open-focus="(false)"
                     ng-model="$ctrl.delivery.route.pickup.date"
                     is-open="$ctrl.pickers.pickup"
                     datepicker-options="$ctrl.dateOptions"
@@ -240,7 +241,13 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-12"></div>
+              <div class="col-md-5 col-sm-12">
+                <rzslider
+                  rz-slider-model="$ctrl.pickupSlider.minValue"
+                  rz-slider-high="$ctrl.pickupSlider.maxValue"
+                  rz-slider-options="$ctrl.pickupSlider.options"
+                ></rzslider>
+              </div>
             </div>
             <div class="form-group row">
               <label for="delivery" class="col-md-3 col-sm-12 col-form-label"
@@ -252,6 +259,8 @@
                     type="text"
                     class="form-control"
                     uib-datepicker-popup
+                    show-button-bar="false"
+                    on-open-focus="(false)"
                     placeholder="YYYY-MM-DD"
                     ng-model="$ctrl.delivery.route.deliver.date"
                     is-open="$ctrl.pickers.delivery"
@@ -269,7 +278,13 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-12"></div>
+              <div class="col-md-5 col-sm-12">
+                <rzslider
+                  rz-slider-model="$ctrl.deliverySlider.minValue"
+                  rz-slider-high="$ctrl.deliverySlider.maxValue"
+                  rz-slider-options="$ctrl.deliverySlider.options"
+                ></rzslider>
+              </div>
             </div>
           </div>
         </div>

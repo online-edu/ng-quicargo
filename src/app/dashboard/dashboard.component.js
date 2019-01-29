@@ -13,32 +13,18 @@
       function DashboardController(dashboardService, $window) {
         var self = this;
         $window.document.title = "Dashboard";
-        self.pallets = [
-          { id: 0, name: "Block pallet" },
-          { id: 1, name: "Stringer pallet" }
-        ];
         self.countries = [];
-        self.dateOptions = {
-          formatYear: "yy",
-          maxDate: new Date(2020, 5, 22),
-          minDate: new Date(),
-          startingDay: 1
-        };
+        self.pallets = dashboardService.getVolumeTypes();
+        self.dateOptions = dashboardService.getDateOptions();
         self.pickers = {
           pickup: false,
           delivery: false
         };
         self.loader = true;
-        self.slider = {
-          minValue: 0,
-          maxValue: 24,
-          options: {
-            floor: 0,
-            ceil: 24,
-            step: 0.5
-          }
-        };
-
+        self.freightGood = "";
+        self.pickupSlider = dashboardService.sliderOptions();
+        self.deliverySlider = dashboardService.sliderOptions();
+        self.goods = ["Paper", "Plastic", "Textil", "Other"];
         /* self.delivery = {
       route: {
         pickup: {
@@ -71,6 +57,10 @@
           self.countries = data;
           self.loader = false;
         });
+
+        self.onGoodsClick = function(good) {
+          self.freightGood = good;
+        };
 
         self.openPickupDate = function() {
           self.pickers.pickup = true;

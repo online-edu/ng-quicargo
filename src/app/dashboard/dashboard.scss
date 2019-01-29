@@ -46,4 +46,12 @@
       }
     }
   }
+  .rzslider {
+    .rz-pointer {
+      outline: none;
+    }
+    .rz-pointer.rz-active:after {
+      background-color: $white;
+    }
+  }
 }
