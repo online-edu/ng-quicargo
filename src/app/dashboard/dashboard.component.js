@@ -6,7 +6,7 @@
  */
 (function() {
   angular.module("quicargo").component("dashboard", {
-    templateUrl: "partials/dashboard/dashboard.html",
+    templateUrl: "partials/dashboard.html",
     controller: [
       "dashboardService",
       "$window",

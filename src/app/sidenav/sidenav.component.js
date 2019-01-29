@@ -7,7 +7,7 @@
 (function() {
   "use strict";
   angular.module("quicargo").component("sidenav", {
-    templateUrl: "partials/sidenav/sidenav.html",
+    templateUrl: "partials/sidenav.html",
     controller: [
       "$route",
       "$window",
