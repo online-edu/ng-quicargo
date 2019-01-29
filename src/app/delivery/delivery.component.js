@@ -8,6 +8,11 @@
   "use strict";
   angular.module("quicargo").component("delivery", {
     templateUrl: "partials/delivery.html",
-    controller: [function DeliveryController() {}]
+    controller: [
+      "$window",
+      function DeliveryController($window) {
+        $window.document.title = "My Deliveries | Quicargo";
+      }
+    ]
   });
 })();
