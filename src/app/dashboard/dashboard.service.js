@@ -8,7 +8,7 @@
     "$q",
     "$http",
     function($q, $http) {
-      const sliderOptions = function() {
+      var sliderOptions = function() {
         return {
           minValue: 0,
           maxValue: 24,
@@ -37,7 +37,7 @@
         };
       };
 
-      const getCountries = function() {
+      var getCountries = function() {
         var defer = $q.defer();
         $http({
           method: "GET",
@@ -48,7 +48,7 @@
         return defer.promise;
       };
 
-      const getDateOptions = function() {
+      var getDateOptions = function() {
         return {
           formatYear: "yy",
           maxDate: new Date(2020, 5, 22),
@@ -57,14 +57,14 @@
         };
       };
 
-      const getHours = function(hrs) {
-        let hm = hrs.split(".");
+      var getHours = function(hrs) {
+        var hm = hrs.split(".");
         return hm.length > 1
           ? hm[0] + ":".concat(hm[1] == 5 ? "30" : "00")
           : hm[0] + ":00";
       };
 
-      const getVolumeTypes = function() {
+      var getVolumeTypes = function() {
         return [
           { id: 0, name: "Block pallet" },
           { id: 1, name: "Stringer pallet" }
