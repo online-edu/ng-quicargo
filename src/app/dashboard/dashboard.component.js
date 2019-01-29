@@ -25,34 +25,6 @@
         self.pickupSlider = dashboardService.sliderOptions();
         self.deliverySlider = dashboardService.sliderOptions();
         self.goods = ["Paper", "Plastic", "Textil", "Other"];
-        /* self.delivery = {
-      route: {
-        pickup: {
-          city: "",
-          address: "",
-          date: "",
-          time: ""
-        },
-        deliver: {
-          city: "",
-          address: "",
-          date: "",
-          time: ""
-        }
-      },
-      freight: {
-        goods: "",
-        volume: {
-          type: "",
-          qty: "",
-          length: "",
-          width: "",
-          height: ""
-        },
-        weight: ""
-      }
-    }; */
-
         dashboardService.getCountries().then(function(data) {
           self.countries = data;
           self.loader = false;
