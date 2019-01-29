@@ -12,7 +12,7 @@
       "$window",
       function DashboardController(dashboardService, $window) {
         var self = this;
-        $window.document.title = "Dashboard";
+        $window.document.title = "Dashboard | Quicargo";
         self.countries = [];
         self.pallets = dashboardService.getVolumeTypes();
         self.dateOptions = dashboardService.getDateOptions();
@@ -64,7 +64,15 @@
          * @param {boolean} isValid
          */
         self.onSubmit = function(isValid) {
-          console.log(self.delivery, isValid);
+          if (isValid) {
+            self.delivery.route.deliver.time = dashboardService.getTimes(
+              self.deliverySlider
+            );
+            self.delivery.route.pickup.time = dashboardService.getTimes(
+              self.pickupSlider
+            );
+            self.delivery.freight.good = self.freightGood;
+          }          
         };
         /**
          * @namespace DashboardController

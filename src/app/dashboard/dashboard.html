@@ -104,7 +104,7 @@
                     ng-repeat="good in $ctrl.goods"
                     ng-click="$ctrl.onGoodsClick(good)"
                     type="button"
-                    class="btn btn-secondary"
+                    class="btn btn-primary"
                   >
                     {{ good }}
                   </button>
@@ -289,7 +289,13 @@
           </div>
         </div>
         <div class="mb-4 dashboard__form-footer">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button
+            ng-disabled="deliveryForm.$invalid"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Submit
+          </button>
           <button
             type="reset"
             ng-click="$ctrl.reset(deliveryForm)"
@@ -306,8 +312,19 @@
       </div>
     </div>
   </div>
-</div>
+  <div class="row" ng-if="deliveryForm.$valid && deliveryForm.$submitted">
+    <div class="col-md-7 col-sm-12">
+      <div class="card dashboard__cards mt-3 mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Form Data</h5>
 
-<pre>
-  {{ $ctrl.delivery | json }}
-</pre>
+          <pre
+            >{{ $ctrl.delivery | json }}
+            </pre
+          >
+          <code>Note: Only for preview(in development) purpose.</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
