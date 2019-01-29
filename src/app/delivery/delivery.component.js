@@ -7,7 +7,7 @@
 (function() {
   "use strict";
   angular.module("quicargo").component("delivery", {
-    templateUrl: "partials/delivery/delivery.html",
+    templateUrl: "partials/delivery.html",
     controller: [function DeliveryController() {}]
   });
 })();

@@ -7,41 +7,34 @@
 (function() {
   "use strict";
   angular.module("quicargo").component("sidenav", {
-    templateUrl: "partials/sidenav/sidenav.html",
+    templateUrl: "partials/sidenav.html",
     controller: [
       "$route",
-      function SidenavController($route) {
+      "$window",
+      "sidenavService",
+      function SidenavController($route, $window, sidenavService) {
         var main = document.getElementById("quicargo-container");
         var sidenav = document.getElementById("sidenav");
+        var mainClass = "quicargo-container--full-screen";
+        var sideNavClass = "sidenav--collapsed";
         var self = this;
         self.$route = $route;
         self.collapsed = false;
-        self.navItems = [
-          { link: "dashboard", title: "New Delivery", disabled: false },
-          {
-            link: "delivery",
-            title: "My Deliveries",
-            count: 2,
-            disabled: false
-          },
-          { link: "history", title: "History", count: 4, disabled: false }
-        ];
+        self.navItems = sidenavService.getNavItems();
         /**
          * @namespace SidenavController
+         * @function toggleMenu
          * @desc Toggles the sidenav on menu click
          */
         self.toggleMenu = function() {
-          self.updateStyles(self.collapsed ? "260px" : "75px");
+          sidenavService.toggleClass(
+            [main, sidenav],
+            [mainClass, sideNavClass],
+            self.collapsed
+          );
           self.collapsed = !self.collapsed;
         };
-        /**
-         * @namespace SidenavController
-         * @desc update styles for main container and side nav
-         */
-        self.updateStyles = function(val) {
-          main.style.marginLeft = val;
-          sidenav.style.width = val;
-        };
+        $window.matchMedia("(max-width: 700px)").matches && self.toggleMenu();
       }
     ]
   });

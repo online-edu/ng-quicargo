@@ -6,86 +6,72 @@
  */
 (function() {
   angular.module("quicargo").component("dashboard", {
-    templateUrl: "partials/dashboard/dashboard.html",
+    templateUrl: "partials/dashboard.html",
     controller: [
       "dashboardService",
       "$window",
       function DashboardController(dashboardService, $window) {
         var self = this;
         $window.document.title = "Dashboard";
-        self.pallets = [
-          { id: 0, name: "Block pallet" },
-          { id: 1, name: "Stringer pallet" }
-        ];
         self.countries = [];
-        self.dateOptions = {
-          formatYear: "yy",
-          maxDate: new Date(2020, 5, 22),
-          minDate: new Date(),
-          startingDay: 1
-        };
+        self.pallets = dashboardService.getVolumeTypes();
+        self.dateOptions = dashboardService.getDateOptions();
+        self.loader = true;
+        self.freightGood = "";
+        self.pickupSlider = dashboardService.getSliderOptions();
+        self.deliverySlider = dashboardService.getSliderOptions();
+        self.goods = ["Paper", "Plastic", "Textil", "Other"];
+        self.delivery = {};
         self.pickers = {
           pickup: false,
           delivery: false
         };
-        self.loader = true;
-        self.slider = {
-          minValue: 0,
-          maxValue: 24,
-          options: {
-            floor: 0,
-            ceil: 24,
-            step: 0.5
-          }
-        };
-
-        /* self.delivery = {
-      route: {
-        pickup: {
-          city: "",
-          address: "",
-          date: "",
-          time: ""
-        },
-        deliver: {
-          city: "",
-          address: "",
-          date: "",
-          time: ""
-        }
-      },
-      freight: {
-        goods: "",
-        volume: {
-          type: "",
-          qty: "",
-          length: "",
-          width: "",
-          height: ""
-        },
-        weight: ""
-      }
-    }; */
 
         dashboardService.getCountries().then(function(data) {
           self.countries = data;
           self.loader = false;
         });
-
+        /**
+         * @namespace DashboardController
+         * @function onGoodsClick
+         * @desc Capture selectd good.
+         */
+        self.onGoodsClick = function(good) {
+          self.freightGood = good;
+        };
+        /**
+         * @namespace DashboardController
+         * @function openPickupDate
+         * @desc Set pickup datepicker visibility
+         */
         self.openPickupDate = function() {
           self.pickers.pickup = true;
           self.pickers.delivery = false;
         };
-
+        /**
+         * @namespace DashboardController
+         * @function openDeliveryDate
+         * @desc Set delivery datepicker visibility
+         */
         self.openDeliveryDate = function() {
           self.pickers.delivery = true;
           self.pickers.pickup = false;
         };
-
+        /**
+         * @namespace DashboardController
+         * @function onSubmit
+         * @desc Performs actions on form submission
+         * @param {boolean} isValid
+         */
         self.onSubmit = function(isValid) {
           console.log(self.delivery, isValid);
         };
-
+        /**
+         * @namespace DashboardController
+         * @function reset
+         * @desc Resets the form
+         * @param {Object} form
+         */
         self.reset = function(form) {
           if (form) {
             form.$setPristine();

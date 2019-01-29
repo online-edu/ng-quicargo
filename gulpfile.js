@@ -6,93 +6,70 @@ const uglify = require("gulp-uglify");
 const concat = require("gulp-concat");
 const minify = require("gulp-minify");
 const cssnano = require("gulp-cssnano");
-const jshint = require("gulp-jshint");
-const templateCache = require("gulp-angular-templatecache");
+const rename = require("gulp-rename");
+const uuidv1 = require("uuid/v1");
+const source = require("./source");
+const template = require("gulp-template");
 
-const modules = "./node_modules";
-var development = false;
-
-const styles = [`${modules}/bootstrap/dist/css/bootstrap.min.css`];
-
-const scripts = [
-  `${modules}/angular/angular.min.js`,
-  `${modules}/angular-route/angular-route.min.js`,
-  `${modules}/angular-touch/angular-touch.min.js`,
-  `${modules}/angular-animate/angular-animate.min.js`,
-  `${modules}/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js`,
-  `${modules}/angularjs-slider/dist/rzslider.min.js`,
-  "./src/app/**/*.js"
-];
+const uuid = uuidv1();
+let jsFileName = `quicargo_${uuid}.js`,
+  cssFileName = `quicargo_${uuid}.css`;
 
 gulp.task("sass", () =>
   gulp
-    .src([
-      "./src/**/**/*.scss",
-      "./node_modules/angularjs-slider/dist/rzslider.min.css"
-    ])
+    .src(source.styles)
     .pipe(sass())
-    // .pipe(cssnano())
-    .pipe(concat("quicargo.css"))
+    .pipe(cssnano())
+    .pipe(concat(cssFileName))
     .pipe(gulp.dest("./dist/css"))
 );
 
 gulp.task("js", () =>
   gulp
-    .src(scripts)
-    .pipe(concat("quicargo.js"))
-    // .pipe(uglify())
-    // .pipe(minify())
+    .src(source.scripts)
+    .pipe(concat(jsFileName))
+    .pipe(uglify())
+    .pipe(minify())
     .pipe(gulp.dest("./dist/js"))
 );
 
-gulp.task("lint", () =>
-  gulp
-    .src("./src/app/**/*.js")
-    .pipe(jshint())
-    .pipe(jshint.reporter("jshint-stylish", { verbose: true }))
-);
-
 gulp.task("html", () => {
-  gulp.src("./src/*.html").pipe(gulp.dest("./dist/"));
-  return gulp.src("./src/app/**/*.html").pipe(gulp.dest("./dist/partials/"));
+  gulp
+    .src(source.views.src)
+    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(gulp.dest("./dist/"));
+
+  return gulp
+    .src(source.views.app)
+    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(rename({ dirname: "" }))
+    .pipe(gulp.dest("./dist/partials/"));
 });
 
-gulp.task("ng", () =>
+gulp.task("inject", () =>
   gulp
-    .src("./src/app/**/*.html")
-    .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(
-      templateCache("templates.js", {
-        module: "quicargo",
-        root: ""
-      })
-    )
+    .src("./dist/index.html")
+    .pipe(template({ js: `./js/${jsFileName}`, css: `./css/${cssFileName}` }))
     .pipe(gulp.dest("dist"))
 );
+
 gulp.task("assets", () =>
-  gulp.src("./src/assets/**.*").pipe(gulp.dest("./dist/assets"))
+  gulp.src(source.assets).pipe(gulp.dest("./dist/assets"))
 );
 
 gulp.task(
   "build",
-  gulp.series(["sass", "js", "assets", "html"]),
-  // gulp.series(["css", "sass", "js", "ng", "html", "assets"]),
+  gulp.series(["html", "sass", "js", "assets", "inject"]),
   () => {}
 );
 
 gulp.task("browser-sync", () => {
   browserSync.init({
-    open: false,
+    open: true,
     server: {
       baseDir: "./dist"
-    },
-    reloadDelay: 1000,
-    injectChanges: true,
-    notify: true
+    }
   });
 });
 
-gulp.task("serve", gulp.series(["build", "browser-sync"]), () => {
-  gulp.watch("./src/**/**/*.scss", ["sass"]);
-  gulp.watch("*.html").on("change", browserSync.reload);
-});
+gulp.task("serve", gulp.series(["build", "browser-sync"]), () => {});
