@@ -19,7 +19,7 @@ Visit [`https://online-edu.github.io/ng-quicargo`](https://online-edu.github.io/
     1.  Serve - `npm start`
     2.  Visit - `localhost:8080`
 1.  Build the app
-    1.  Build - `npm build`
+    1.  Build - `npm run build`
     2.  Check `./dist` folder
 1.  Run tests
     1.  Test - `npm test`
