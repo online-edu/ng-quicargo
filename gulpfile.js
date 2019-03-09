@@ -9,6 +9,7 @@ const cssnano = require("gulp-cssnano");
 const rename = require("gulp-rename");
 const template = require("gulp-template");
 const environments = require("gulp-environments");
+const templateCache = require("gulp-angular-templatecache");
 const uuidv1 = require("uuid/v1");
 const source = require("./source");
 const del = require("del");
@@ -16,7 +17,8 @@ const del = require("del");
 const uuid = uuidv1();
 const production = environments.production;
 let jsFileName = `quicargo_${uuid}.js`,
-  cssFileName = `quicargo_${uuid}.css`;
+  cssFileName = `quicargo_${uuid}.css`,
+  templateFileName = `quicargo_templates_${uuid}.js`;
 
 gulp.task("sass", () =>
   gulp
@@ -47,13 +49,27 @@ gulp.task("html", () => {
     .src(source.views.app)
     .pipe(production(htmlmin({ collapseWhitespace: true })))
     .pipe(rename({ dirname: "" }))
-    .pipe(gulp.dest("./dist/partials/"));
+    .pipe(
+      templateCache({
+        module: "quicargo",
+        standalone: false,
+        root: "partials/",
+        filename: templateFileName
+      })
+    )
+    .pipe(gulp.dest("./dist/js/"));
 });
 
 gulp.task("inject", () =>
   gulp
     .src("./dist/index.html")
-    .pipe(template({ js: `./js/${jsFileName}`, css: `./css/${cssFileName}` }))
+    .pipe(
+      template({
+        js: `./js/${jsFileName}`,
+        template: `./js/${templateFileName}`,
+        css: `./css/${cssFileName}`
+      })
+    )
     .pipe(gulp.dest("dist"))
 );
 
