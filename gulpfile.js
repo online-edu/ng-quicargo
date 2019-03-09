@@ -7,12 +7,14 @@ const concat = require("gulp-concat");
 const minify = require("gulp-minify");
 const cssnano = require("gulp-cssnano");
 const rename = require("gulp-rename");
+const template = require("gulp-template");
+const environments = require("gulp-environments");
 const uuidv1 = require("uuid/v1");
 const source = require("./source");
-const template = require("gulp-template");
 const del = require("del");
 
 const uuid = uuidv1();
+const production = environments.production;
 let jsFileName = `quicargo_${uuid}.js`,
   cssFileName = `quicargo_${uuid}.css`;
 
@@ -20,7 +22,7 @@ gulp.task("sass", () =>
   gulp
     .src(source.styles)
     .pipe(sass())
-    .pipe(cssnano())
+    .pipe(production(cssnano()))
     .pipe(concat(cssFileName))
     .pipe(gulp.dest("./dist/css"))
     .pipe(browserSync.stream())
@@ -30,20 +32,20 @@ gulp.task("js", () =>
   gulp
     .src(source.scripts)
     .pipe(concat(jsFileName))
-    .pipe(uglify())
-    .pipe(minify())
+    .pipe(production(uglify()))
+    .pipe(production(minify()))
     .pipe(gulp.dest("./dist/js"))
 );
 
 gulp.task("html", () => {
   gulp
     .src(source.views.src)
-    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(production(htmlmin({ collapseWhitespace: true })))
     .pipe(gulp.dest("./dist/"));
 
   return gulp
     .src(source.views.app)
-    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(production(htmlmin({ collapseWhitespace: true })))
     .pipe(rename({ dirname: "" }))
     .pipe(gulp.dest("./dist/partials/"));
 });
