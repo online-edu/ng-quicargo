@@ -10,6 +10,7 @@ const rename = require("gulp-rename");
 const uuidv1 = require("uuid/v1");
 const source = require("./source");
 const template = require("gulp-template");
+const del = require("del");
 
 const uuid = uuidv1();
 let jsFileName = `quicargo_${uuid}.js`,
@@ -22,6 +23,7 @@ gulp.task("sass", () =>
     .pipe(cssnano())
     .pipe(concat(cssFileName))
     .pipe(gulp.dest("./dist/css"))
+    .pipe(browserSync.stream())
 );
 
 gulp.task("js", () =>
@@ -57,19 +59,27 @@ gulp.task("assets", () =>
   gulp.src(source.assets).pipe(gulp.dest("./dist/assets"))
 );
 
+gulp.task("clean", () => del("./dist/**/*"));
+
 gulp.task(
   "build",
-  gulp.series(["html", "sass", "js", "assets", "inject"]),
+  gulp.series(["clean", "html", "sass", "js", "assets", "inject"]),
   () => {}
 );
 
 gulp.task("browser-sync", () => {
   browserSync.init({
     open: true,
+    watch: true,
+    https: true,
     server: {
       baseDir: "./dist"
     }
   });
+
+  gulp.watch("./src/**/*.scss", gulp.series("sass"));
+  gulp.watch("./src/**/*.js", gulp.series("js"));
+  gulp.watch("./src/**/*.html", gulp.series(["html", "inject"]));
 });
 
 gulp.task("serve", gulp.series(["build", "browser-sync"]), () => {});
