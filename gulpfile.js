@@ -4,7 +4,6 @@ const htmlmin = require("gulp-htmlmin");
 const browserSync = require("browser-sync").create();
 const uglify = require("gulp-uglify");
 const concat = require("gulp-concat");
-const minify = require("gulp-minify");
 const cssnano = require("gulp-cssnano");
 const rename = require("gulp-rename");
 const template = require("gulp-template");
@@ -34,8 +33,7 @@ gulp.task("js", () =>
   gulp
     .src(source.scripts)
     .pipe(concat(jsFileName))
-    .pipe(production(uglify()))
-    .pipe(production(minify()))
+    .pipe(production(uglify()))    
     .pipe(gulp.dest("./dist/js"))
 );
 
