@@ -5,6 +5,7 @@
   "scripts": {
     "start": "gulp serve",
     "build": "gulp build --env production",
+    "lint": "eslint ./src/app",
     "test": "karma start"
   },
   "repository": {
@@ -33,6 +34,8 @@
     "angular-mocks": "^1.7.6",
     "browser-sync": "^2.26.3",
     "del": "^4.0.0",
+    "eslint": "^5.15.1",
+    "eslint-plugin-angular": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-angular-templatecache": "^2.2.6",
     "gulp-concat": "^2.6.1",
