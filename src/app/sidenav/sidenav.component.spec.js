@@ -10,7 +10,7 @@ describe("Component: sidenav", function() {
     }
   ];
 
-  describe("HeaderController", function() {
+  describe("SidenavController", function() {
     beforeEach(inject(function($rootScope, $componentController) {
       scope = $rootScope.$new();
       controller = $componentController("sidenav", { $scope: scope });

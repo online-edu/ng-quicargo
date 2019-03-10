@@ -11,6 +11,6 @@
     bindings: {
       user: "@"
     },
-    controller: [function HeaderController() {}]
+    controller: [function AppNavController() {}]
   });
 })();

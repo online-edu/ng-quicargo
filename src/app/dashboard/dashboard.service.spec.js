@@ -2,6 +2,7 @@ describe("Dashboard service", function() {
   var dashboardService;
 
   beforeEach(angular.mock.module("quicargo"));
+  beforeEach(angular.mock.module("dashboardService"));
 
   beforeEach(inject(function(_dashboardService_) {
     dashboardService = _dashboardService_;
