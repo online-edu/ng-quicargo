@@ -11,10 +11,11 @@
     controller: [
       "$route",
       "$window",
+      "$document",
       "sidenavService",
-      function SidenavController($route, $window, sidenavService) {
-        var main = document.getElementById("quicargo-container");
-        var sidenav = document.getElementById("sidenav");
+      function SidenavController($route, $window, $document, sidenavService) {        
+        var main = $document[0].getElementById("quicargo-container");
+        var sidenav = $document[0].getElementById("sidenav");
         var mainClass = "quicargo-container--full-screen";
         var sideNavClass = "sidenav--collapsed";
         var self = this;

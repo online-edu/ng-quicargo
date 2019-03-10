@@ -7,7 +7,7 @@
 (function() {
   "use strict";
   angular.module("quicargo").component("appNav", {
-    templateUrl: "partials/header.html",
+    templateUrl: "partials/app-nav.html",
     bindings: {
       user: "@"
     },
